@@ -37,3 +37,19 @@ impl Config {
         }
     }
 }
+
+#[cfg(test)]
+mod test {
+    use super::Config;
+
+    #[test]
+    fn config_analysis() {
+        let conf = Config::new("./src/participant.conf");
+        assert_eq!(conf.mode, "participant");
+        assert_eq!(conf.coordinator_info, "127.0.0.1:8001");
+        match conf.participant_info.get(0) {
+            Some(x) => assert_eq!(x, "127.0.0.1:8002"),
+            None => ()
+        }
+    }
+}

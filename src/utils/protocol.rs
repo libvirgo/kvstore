@@ -86,3 +86,17 @@ fn add_str(key: Option<&String>) -> String {
     };
     res
 }
+
+#[cfg(test)]
+mod test{
+    use super::Protocol;
+    #[test]
+    fn set_analysis(){
+        let protocol = Protocol::new("set hello 'hello world'");
+        assert_eq!(protocol.to_resp(),"*4\r\n$3\r\nSET\r\n$5\r\nhello\r\n$5\r\nhello\r\n$5\r\nworld\r\n");
+        let protocol=Protocol::new("get hello");
+        assert_eq!(protocol.to_resp(),"*2\r\n$3\r\nGET\r\n$5\r\nhello\r\n");
+        let protocol=Protocol::new("del hello world");
+        assert_eq!(protocol.to_resp(),"*3\r\n$3\r\nDEL\r\n$5\r\nhello\r\n$5\r\nworld\r\n");
+    }
+}
