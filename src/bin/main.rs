@@ -1,6 +1,4 @@
 use clap::{Arg, App};
-use kvstore::utils::config::Config;
-use kvstore::utils::protocol::Protocol;
 
 fn main() {
     let matches = App::new("KVStore")
